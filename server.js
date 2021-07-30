@@ -31,6 +31,10 @@ io.on("connection", (socket) => {
     // send a message to everyone else (broadcast)
     // socket.to(roomId).broadcast.emit("user-connected", userId);
     socket.broadcast.to(roomId).emit("user-connected", userId);
+
+    socket.on("disconnect", () => {
+      socket.broadcast.to(roomId).emit("user-disconnected", userId);
+    });
   });
 });
 
